@@ -1,0 +1,9 @@
+.bd-placeholder-img{
+    height:100px;
+    text-align: center;
+    font-size: xx-large;
+    vertical-align: middle;
+    line-height: 100px;
+}
+.card { transition: all .2s ease-in-out; }
+.card:hover { transform: scale(1.1); }
