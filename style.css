@@ -22,6 +22,6 @@ a:hover {
     transition: all .2s ease-in-out; 
 }
 
-a:hover {
+.sibrlink:hover {
     color: black;transform: scale(1.1); 
 }
