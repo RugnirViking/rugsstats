@@ -2,6 +2,7 @@
     <head>
         <title>Rug's Stats</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -55,8 +56,8 @@
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Value (<span id="statName"></span>)</th>
-              <th scope="col">Difference</th>
-              <th scope="col">% Match</th>
+              <th id="diffCol" scope="col">Difference</th>
+              <th id="matchCol" scope="col">% Match</th>
             </tr>
           </thead>
           <tbody id="modalTable">
@@ -107,7 +108,7 @@
                               <option>Coldness</option>
                               <option>Overpowerment</option>
                               <option>Ruthlessness</option>
-                              <option>Shakesperianism</option>
+                              <option>Shakespearianism</option>
                               <option>Suppression</option>
                               <option>Unthwackability</option>
                               <option>Basethirst</option>
@@ -120,12 +121,11 @@
                               <option>Omniscience</option>
                               <option>Tenaciousness</option>
                               <option>Watchfulness</option>
-                              <option>Pressurisation</option>
+                              <option>Pressurization</option>
                               <option>Cinnamon</option>
                               <option>Soul</option>
                               <option>Fate</option>
                               <option>Fingers</option>
-                              <option>Density</option>
                             </select>
                           </div>
                           <div class="form-group col">
@@ -135,6 +135,63 @@
                           <div class="form-group col">
                             <label for="submitButton" class="labelForm">Go!</label>
                             <button id="submitButton" type="button" class="btn btn-primary mb-2 submitButton">Find Players</button>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="card">
+                      <h5 class="card-header">FK Outlier Search</h5>
+                      <div class="card-body">
+                        <p class="card-text note">Here you can search for the historical results for players with the highest or lowest FK values for a particular stat</p>
+                        <div >
+                          <form class="row row-cols-3 g-3">
+                          <div class="form-group col">
+                            <label for="stat2Select" class="labelForm">Stat to Query</label>
+                            <select class="form-control" id="stat2Select">
+                              <option>Buoyancy</option>
+                              <option>Divinity</option>
+                              <option>Martyr</option>
+                              <option>Moxie</option>
+                              <option>Musclitude</option>
+                              <option>Patheticism</option>
+                              <option>Thwackability</option>
+                              <option>Tragicness</option>
+                              <option>Coldness</option>
+                              <option>Overpowerment</option>
+                              <option>Ruthlessness</option>
+                              <option>Shakespearianism</option>
+                              <option>Suppression</option>
+                              <option>Unthwackability</option>
+                              <option>Basethirst</option>
+                              <option>Continuation</option>
+                              <option>Ground Friction</option>
+                              <option>Indulgence</option>
+                              <option>Laserlikeness</option>
+                              <option>Anticapitalism</option>
+                              <option>Chasiness</option>
+                              <option>Omniscience</option>
+                              <option>Tenaciousness</option>
+                              <option>Watchfulness</option>
+                              <option>Pressurization</option>
+                              <option>Cinnamon</option>
+                              <option>Soul</option>
+                              <option>Fate</option>
+                              <option>Fingers</option>
+                            </select>
+                          </div>
+                          <div class="form-group col">
+                            <label for="statDir" class="labelForm">Stat to Query</label>
+                            <select class="form-control" id="statDir">
+                              <option>Highest</option>
+                              <option>Lowest</option>
+                            </select>
+                          </div>
+                          <div class="form-group col">
+                            <label for="submitButtonOutlier" class="labelForm">Go!</label>
+                            <button id="submitButtonOutlier" type="button" class="btn btn-primary mb-2 submitButton">Find Players</button>
                           </div>
                           </form>
                         </div>
