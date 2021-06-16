@@ -6,8 +6,8 @@
     line-height: 100px;
     background-color: lightgrey;
 }
-.card { transition: all .2s ease-in-out; }
-.card:hover { transform: scale(1.1); }
+.cardGrow { transition: all .2s ease-in-out; }
+.cardGrow:hover { transform: scale(1.1); }
 a {
     color: black;
     text-decoration: none;
@@ -24,4 +24,20 @@ a:hover {
 
 .sibrlink:hover {
     color: black;transform: scale(1.1); 
+}
+.labelForm{
+    text-align: center;
+    display: block;
+    color:#999999
+}
+.submitButton {
+    margin: 0 auto;
+    display: block;
+}
+.playerRow{
+    cursor: pointer;
+}
+.note{
+    font-size: small;
+    color:#999999;
 }

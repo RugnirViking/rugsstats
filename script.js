@@ -16,6 +16,7 @@ $( document ).ready(function() {
                 teamcard.classList.add("col");
                 var teamcardin = document.createElement("div");
                 teamcardin.classList.add("card");
+                teamcardin.classList.add("cardGrow");
                 teamcardin.classList.add("shadow-sm");
 
                 

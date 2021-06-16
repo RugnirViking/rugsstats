@@ -26,7 +26,7 @@
             </div>
             <div class="navbar navbar-dark bg-dark shadow-sm">
               <div class="container">
-                <a href="/rugsstats" class="navbar-brand d-flex align-items-center">
+                <a href="#" class="navbar-brand d-flex align-items-center">
                     <i class="fas fa-chart-bar"></i>
                     <strong>&nbsp;Rug's Stats</strong>
                 </a>
@@ -43,41 +43,91 @@
               <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
                   <h1 class="fw-light">Teams</h1>
-                  <p class="lead text-muted">Here are some cool things that jazz hand folks have made</p>
+                  <p class="lead text-muted">These are all the teams wot exist. There's supposed to be 24 or something, but it seems a few extra found their way in. Must be a silly mistake by me</p>
+                  <p>
+                    <a href="something.html" class="btn btn-primary my-2">Jazz Hands Stuffs</a>
+                    <a href="#" class="btn btn-secondary my-2">Another button that somehow seems less important</a>
+                  </p>
                 </div>
               </div>
             </section>
           
             <div class="album py-5 bg-light">
               <div class="container">
-                <div id="teamlist" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                  <a class="col" href="https://docs.google.com/spreadsheets/d/1y5x6GB5I4hMiw5Dz1TI1KedaGim2pTY3OIu_XGB5c7E/edit?usp=sharing">
-                    <div class="card cardGrow shadow-sm">
-                        <div class="bd-placeholder-img card-img-top">
-      
-                        </div>
-                        <div class="card-body">
-                            <h2>Vote Tracking Spreadsheet</h2>
-                            <p>A cool vote tracking sheet for jazz hands election time.</p>
-                        </div>
-                    </div>
-                </a>
+          
+                <div id="playerlist" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                  <h3>Lineup</h3>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody id="lineup">
+
+                    </tbody>
+                  </table>
+                  <h3>Rotation</h3>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody id="rotation">
+                      
+                    </tbody>
+                  </table>
+                  <h3>Shadow Lineup</h3>
+                  <table class="table table-hover table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody id="slineup">
+                      
+                    </tbody>
+                  </table>
+                  <h3>Shadow Rotation</h3>
+                  <table class="table table-hover table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody id="srotation">
+                      
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           
           </main>
-          
           <footer class="text-muted py-5">
             <div class="container">
               <p class="float-end mb-1">
                 <a href="#">Back to top</a>
               </p>
               <p class="mb-1">Something something &copy; Rugnir, but not really, steal this and wear it on your head if you like</p>
-              <p class="mb-0">Go visit  <a href="https://sibr.dev/" class="sibrlink">SIBR Here</a>, they make cool things and this legit couldn't exist without those smart cookies.</p>
+              <p class="mb-0">Go visit <a href="https://sibr.dev/" class="sibrlink">SIBR Here</a>, they make cool things and this legit couldn't exist without those smart cookies.</p>
             </div>
           </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"crossorigin="anonymous"></script>
+    <script src="playerlistScript.js"></script>
 </html>
