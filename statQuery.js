@@ -132,14 +132,12 @@ function queryPlayers(caller){
     for (var i=0;i<playersJSON.length;i++){
         var player = playersJSON[i];
         var statVal = player[statSelect.toLowerCase()];
-        if (player.current_state === "active"){
             player.distance = Math.abs(targetStatVal-statVal);
-        }
     }
 
     $("#diffCol").show();
     $("#matchCol").show();
-    const activePlayers = playersJSON.sort( compare ).slice(0,10);
+    var activePlayers = playersJSON.sort( compare ).slice(0,10);
     
     div = document.getElementById( 'modalTable' );
     for (var j=0;j<activePlayers.length;j++){
