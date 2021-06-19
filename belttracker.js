@@ -197,6 +197,8 @@ function GetBeltOnDate(sender,somethingelse){
         return;
     }
     
+    var element = document.getElementById("dateBeltErrorText");
+    element.classList.add("hide");
     document.getElementById('spinner').style.display = 'block';
     $.ajax({
         url: "https://cors-proxy.blaseball-reference.com/database/season?number="+(selectedSeason-2),
