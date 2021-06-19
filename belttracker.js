@@ -163,13 +163,17 @@ $( document ).ready(function() {
         }
     });
 });
-function DateBeltError(errorText){
+function DateBeltError(errorText,day=-1){
     var element = document.getElementById("dateBeltErrorText");
     element.classList.remove("hide");
     element.innerText = errorText;
     
     document.getElementById("seasonlbl").value=(currentSeason+1);
-    document.getElementById("daylbl").value=(currentDay+1);
+    if (day===-1){
+        document.getElementById("daylbl").value=(currentDay+1);
+    } else {
+        document.getElementById("daylbl").value=day;
+    }
 }
 function GetBeltOnDate(sender,somethingelse){
     
@@ -192,7 +196,7 @@ function GetBeltOnDate(sender,somethingelse){
         DateBeltError("Cannot select day after current day ("+(currentDay+1)+")");
         return;
     } else if (selectedDay-1>100){
-        DateBeltError("Cannot select day after day 100 in historical seasons ("+(currentDay+1)+")");
+        DateBeltError("Cannot select day after day 100 in historical seasons ("+(currentDay+1)+")",100);
         return;
     } 
     if (selectedDay<1){
