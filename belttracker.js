@@ -332,7 +332,7 @@ function ListWildTeams(teams){
     for (var i=0;i<teams.length;i++){
         var team = teams[i];
         var teamcard = document.createElement("div");
-        teamcard.classList.add("col");
+        teamcard.classList.add("col-12");
         teamcard.classList.add("col-lg-4");
         var teamcardin = document.createElement("div");
         teamcardin.classList.add("card");
