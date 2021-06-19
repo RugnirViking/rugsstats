@@ -188,8 +188,11 @@ function GetBeltOnDate(sender,somethingelse){
         DateBeltError("Invalid Season. Valid range is 7-"+(currentSeason+1));
         return;
     }
-    if (selectedDay-1>currentDay){
+    if ((selectedSeason-1)==currentSeason && selectedDay-1>currentDay){
         DateBeltError("Cannot select day after current day ("+(currentDay+1)+")");
+        return;
+    } else if (selectedDay-1>100){
+        DateBeltError("Cannot select day after day 100 in historical seasons ("+(currentDay+1)+")");
         return;
     } 
     if (selectedDay<1){
