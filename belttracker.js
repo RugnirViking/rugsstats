@@ -345,8 +345,9 @@ function ListWildTeams(teams){
         topsection.classList.add("card-img-top");
         topsection.style.backgroundColor = team.mainColor;
         try {
-        topsection.textContent = ""+String.fromCodePoint(team.emoji);
+            topsection.textContent = ""+String.fromCodePoint(team.emoji);
         } catch(err) {
+            topsection.textContent = team.emoji;
         }
         var midsection = document.createElement("div");
         midsection.classList.add("card-body");
