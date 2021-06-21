@@ -83,7 +83,7 @@ $( document ).ready(function() {
                                                     for(var i=0;i<result6.data.length;i++){
                                                         var game = result6.data[i];
                                                         var gamedata = game.data;
-                                                        if (gamedata.finalized && gamedata.day%3==0){
+                                                        if (gamedata.finalized && (gamedata.day+1)%3==0){
                                                             // the game has finished and is the last game in a series
                                                             if (wildHighTeams.teams.includes(gamedata.homeTeam) && wildHighTeams.teams.includes(gamedata.awayTeam)){
                                                                 // two wild high teams play each other
@@ -255,7 +255,7 @@ function GetBeltOnDate(sender,somethingelse){
                                     for(var i=0;i<result6.data.length;i++){
                                         var game = result6.data[i];
                                         var gamedata = game.data;
-                                        if (gamedata.finalized && gamedata.day%3==0 && gamedata.day<selectedDay){
+                                        if (gamedata.finalized && (gamedata.day+1)%3==0 && gamedata.day<selectedDay){
                                             // the game has finished and is the last game in a series and is before the supplied day
                                             if (curwildHighTeams.teams.includes(gamedata.homeTeam) && curwildHighTeams.teams.includes(gamedata.awayTeam)){
                                                 // two wild high teams play each other
