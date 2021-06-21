@@ -120,7 +120,11 @@ $( document ).ready(function() {
                                                     // we looped through all games. Current holder should be left
                                                     console.log("Current Holder on day "+(simInfo.day+1)+" is "+currentHolders.fullName);
                                                     var currentTeamElement = document.getElementById("currentHoldingTeam");
-                                                    currentTeamElement.innerText = currentHolders.fullName.toUpperCase() + " "+currentHolders.emoji;
+                                                    try {
+                                                        currentTeamElement.innerText = currentHolders.fullName.toUpperCase() + " "+String.fromCodePoint(currentHolders.emoji);
+                                                    } catch(err) {
+                                                        currentTeamElement.innerText = currentHolders.fullName.toUpperCase() + " "+currentHolders.emoji;
+                                                    }
                                                     currentTeamElement.style.color = currentHolders.mainColor;
                                                     
                                                     var currentSeasonElement = document.getElementById("currentSeasonFlip");
