@@ -85,9 +85,6 @@ $( document ).ready(function() {
         success: function(result){
             console.log(result);
             simInfo = result;
-            document.getElementById("seasonlbl").value = (simInfo.season+1);
-            document.getElementById("daylbl").value = (simInfo.day+1);
-            currentDay = simInfo.day;
             $.ajax({
                 url: "https://cors-proxy.blaseball-reference.com/database/season?number="+(currentSeason),
                 dataType: 'json',
