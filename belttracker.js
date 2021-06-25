@@ -88,7 +88,7 @@ $( document ).ready(function() {
                                                             if (wildHighTeams.teams.includes(gamedata.homeTeam) && wildHighTeams.teams.includes(gamedata.awayTeam)){
                                                                 // two wild high teams play each other
                                                                 if (currentHolders.id==gamedata.homeTeam||currentHolders.id==gamedata.awayTeam){
-                                                                    console.log("Processing belt match between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)")
+                                                                    console.log("Processing day "+gamedata.day+" belt match between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)")
                                                                     // one of the teams is the "current" holder of the belt
                                                                     if (gamedata.homeScore>gamedata.awayScore){
                                                                         // home team won
@@ -264,7 +264,7 @@ function GetBeltOnDate(sender,somethingelse){
                                             if (curwildHighTeams.teams.includes(gamedata.homeTeam) && curwildHighTeams.teams.includes(gamedata.awayTeam)){
                                                 // two wild high teams play each other
                                                 if (dateCurrentHolders.id==gamedata.homeTeam||dateCurrentHolders.id==gamedata.awayTeam){
-                                                    console.log("Processing belt match between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)")
+                                                    console.log("Processing day "+gamedata.day+" belt match between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)")
                                                     // one of the teams is the "current" holder of the belt
                                                     if (gamedata.homeScore>gamedata.awayScore){
                                                         // home team won
