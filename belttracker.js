@@ -88,7 +88,7 @@ $( document ).ready(function() {
                                                             if (wildHighTeams.teams.includes(gamedata.homeTeam) && wildHighTeams.teams.includes(gamedata.awayTeam)){
                                                                 // two wild high teams play each other
                                                                 if (currentHolders.id==gamedata.homeTeam||currentHolders.id==gamedata.awayTeam){
-                                                                    console.log("Processing day "+gamedata.day+" belt match between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)")
+                                                                    console.log("Processing day "+(gamedata.day+1)+" belt match between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)")
                                                                     // one of the teams is the "current" holder of the belt
                                                                     if (gamedata.homeScore>gamedata.awayScore){
                                                                         // home team won
@@ -117,8 +117,8 @@ $( document ).ready(function() {
                                                             }
                                                         } 
                                                         if (!gamedata.finalized && (gamedata.day+1)%3==0 && wildHighTeams.teams.includes(gamedata.homeTeam) && wildHighTeams.teams.includes(gamedata.awayTeam)&&(currentHolders.id==gamedata.homeTeam||currentHolders.id==gamedata.awayTeam)){
-                                                            console.log("Next belt game is on day "+gamedata.day+" between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)");
-                                                            document.getElementById("nextgame").innerText = "Next belt game is on day "+gamedata.day+" between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)";
+                                                            console.log("Next belt game is on day "+(gamedata.day+1)+" between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)");
+                                                            document.getElementById("nextgame").innerText = "Next belt game is on day "+(gamedata.day+1)+" between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)";
                                                             break;
                                                         }
                                                     }
