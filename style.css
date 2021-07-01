@@ -135,3 +135,6 @@ html{
 .text-muted{
     color: black!important;
 }
+.header-text{
+    color: grey!important;
+}
