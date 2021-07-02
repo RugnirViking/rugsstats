@@ -12,8 +12,9 @@ $( document ).ready(function() {
             div = document.getElementById( 'teamlist' );
             for (var i=0;i<result.length;i++){
                 var team = result[i];
-                var teamcard = document.createElement("div");
+                var teamcard = document.createElement("a");
                 teamcard.classList.add("col");
+                teamcard.href = "https://www.blaseball.com/team/"+team.id;
                 var teamcardin = document.createElement("div");
                 teamcardin.classList.add("card");
                 teamcardin.classList.add("cardGrow");
