@@ -51,10 +51,44 @@ function compareSort( a, b ) {
         return 0;
     }
 }
+function returnReducedPlayerlist(activeCheck,funkoCheck,position){
+    list = [];
+    for (var j=0;j<playersJSON.length;j++){
+        player = playersJSON[j];
+        if (player.current_state == "replica" && !funkoCheck)
+            continue;
+
+        if (position == "Lineup" && player.position_type != "BATTER")
+            continue;
+        if (position == "Rotation" && player.position_type != "PITCHER")
+            continue;
+        if (position == "Shadows" && player.position_type != "SHADOWS")
+            continue;
+        if (position == "Deceased" && player.current_state != "deceased")
+            continue; 
+               
+        if (player.current_state == "legendary" && activeCheck)
+            continue;
+        if (player.current_state == "deceased" && activeCheck)
+            continue;
+        if (player.current_state == "retired" && activeCheck)
+            continue;
+        if (player.current_state == "deprecated" && activeCheck)
+            continue;
+        if (player.debut_gameday === null && activeCheck)
+            continue;
+        list.push(player);
+    }
+    return list;
+}
 function queryPlayersOutliers(caller){
     $("#exampleModal").modal();
     var statSelect = document.getElementById("stat2Select").value;
     var statDir = document.getElementById("statDir").value;
+
+    var activeCheck = document.getElementById("checkActivePlayersDir").checked;
+    var funkoCheck = document.getElementById("checkFunkosDir").checked;
+    var position = document.getElementById("posSelectDir").value;
 
     if (statDir==="Highest"){
         sortDir=1;
@@ -73,8 +107,8 @@ function queryPlayersOutliers(caller){
     statSelectVal = statSelect.toLowerCase();
     document.getElementById("statName").innerText = statSelect;
     document.getElementById("modalTable").innerHTML = '';
-
-    const activePlayers = playersJSON.sort( compareSort ).slice(0,10);
+    var playersWithSetting = returnReducedPlayerlist(activeCheck,funkoCheck,position);
+    const activePlayers = playersWithSetting.sort( compareSort ).slice(0,15);
     
     div = document.getElementById( 'modalTable' );
     for (var j=0;j<activePlayers.length;j++){
@@ -120,6 +154,10 @@ function queryPlayers(caller){
     var statSelect = document.getElementById("statSelect").value;
     document.getElementById("statName").innerText = statSelect;
     document.getElementById("modalTable").innerHTML = '';
+    
+    var activeCheck = document.getElementById("checkActivePlayers").checked;
+    var funkoCheck = document.getElementById("checkFunkos").checked;
+    var position = document.getElementById("posSelect").value;
 
     if (statSelect==="Fingers"){
         statSelect = "total_fingers";
@@ -137,32 +175,34 @@ function queryPlayers(caller){
 
     $("#diffCol").show();
     $("#matchCol").show();
-    var activePlayers = playersJSON.sort( compare ).slice(0,10);
+    var playersWithSetting = returnReducedPlayerlist(activeCheck,funkoCheck,position);
+    var activePlayers = playersWithSetting.sort( compare ).slice(0,15);
     
     div = document.getElementById( 'modalTable' );
     for (var j=0;j<activePlayers.length;j++){
+        var player = activePlayers[j];
         var playerRow = document.createElement("tr");
         playerRow.classList.add("playerRow");
         playerRow.classList.add("clickable-row");
-        playerRow.href = "https://blaseball-reference.com/players/"+activePlayers[j].player_id;
+        playerRow.href = "https://blaseball-reference.com/players/"+player.player_id;
     
         var playerNum = document.createElement("th");
         playerNum.textContent = ""+(j+1);
         playerNum.setAttribute("scope","row");
     
         var playerName = document.createElement("td");
-        playerName.textContent = ""+activePlayers[j].player_name;
+        playerName.textContent = ""+player.player_name;
     
         var playerBlood = document.createElement("td");
-        playerBlood.textContent = ""+activePlayers[j][statSelect.toLowerCase()].toFixed(5);
+        playerBlood.textContent = ""+player[statSelect.toLowerCase()].toFixed(5);
     
     
         var playerDiff = document.createElement("td");
-        playerDiff.textContent = ""+Math.abs(targetStatVal-activePlayers[j][statSelect.toLowerCase()]).toFixed(5);
+        playerDiff.textContent = ""+Math.abs(targetStatVal-player[statSelect.toLowerCase()]).toFixed(5);
         
         
         var playerpct = document.createElement("td");
-        playerpct.textContent = ""+((Math.abs(targetStatVal-activePlayers[j][statSelect.toLowerCase()])/targetStatVal)*100).toFixed(5);
+        playerpct.textContent = ""+((1-Math.abs(targetStatVal-player[statSelect.toLowerCase()])/targetStatVal)*100).toFixed(5);
     
         playerRow.append(playerNum);
         playerRow.append(playerName);
