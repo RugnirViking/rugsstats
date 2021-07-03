@@ -65,8 +65,8 @@
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Value (<span id="statName"></span>)</th>
-              <th scope="col">Team</th>
-              <th scope="col">Position</th>
+              <th id="teamCol" sscope="col">Team</th>
+              <th id="posCol" sscope="col">Position</th>
               <th id="diffCol" scope="col">Difference</th>
               <th id="matchCol" scope="col">% Match</th>
             </tr>
@@ -254,7 +254,65 @@
                       </div>
                     </div>
                   </div>
-                  
+                  <div class="col-12 col-lg-12">
+                    <div class="card">
+                      <h5 class="card-header">Item Search</h5>
+                      <div class="card-body">
+                        <p class="card-text note">Here you can search for "take"-able items that give a particular stat or mod</p>
+                        <div >
+                          <form class="row row-cols-3 g-3">
+                          <div class="form-group col col-lg-3">
+                            <label for="stat2SelectItem" class="labelForm">Stat to Query</label>
+                            <select class="form-control" id="stat2SelectItem">
+                              <option>Divinity</option>
+                              <option>Martyr</option>
+                              <option>Moxie</option>
+                              <option>Musclitude</option>
+                              <option>Patheticism</option>
+                              <option>Thwackability</option>
+                              <option>Tragicness</option>
+                              <option>Coldness</option>
+                              <option>Overpowerment</option>
+                              <option>Ruthlessness</option>
+                              <option>Shakespearianism</option>
+                              <option>Suppression</option>
+                              <option>Unthwackability</option>
+                              <option>Basethirst</option>
+                              <option>Continuation</option>
+                              <option>Ground Friction</option>
+                              <option>Indulgence</option>
+                              <option>Laserlikeness</option>
+                              <option>Anticapitalism</option>
+                              <option>Chasiness</option>
+                              <option>Omniscience</option>
+                              <option>Tenaciousness</option>
+                              <option>Watchfulness</option>
+                              <option>Pressurization</option>
+                              <option>Cinnamon</option>
+                            </select>
+                          </div>
+                          <div class="form-group col col-lg-3">
+                            <label for="statDirItem" class="labelForm">Direction</label>
+                            <select class="form-control" id="statDirItem">
+                              <option>Highest</option>
+                              <option>Lowest</option>
+                            </select>
+                          </div>
+                          <div class="form-group col col-lg-3">
+                            <label for="modSelect" class="labelForm">Item Mod</label>
+                            <select class="form-control" id="modSelect">
+                              <option>Any</option>
+                            </select>
+                          </div>
+                          <div class="form-group col col-lg-3">
+                            <label for="submitButtonItem" class="labelForm">Go!</label>
+                            <button id="submitButtonItem" type="button" class="btn btn-primary mb-2 submitButton">Find Items</button>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div class="col-12 col-lg-6">
                     <div class="card">
                       <h5 class="card-header">Wild High Belt Holder</h5>
