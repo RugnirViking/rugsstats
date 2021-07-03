@@ -269,7 +269,7 @@ function playerHolding(itemName,health,durability){
         var curPlayer = playersJSON[j];
         for (var i=0;i<curPlayer.items.length;i++){
             var curItemName = curPlayer.items[i];
-            if (curItemName==itemName){
+            if (curItemName==itemName && curPlayer.healths[i]==health){
                 return curPlayer;
             }
         }
