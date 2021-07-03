@@ -292,6 +292,8 @@ function queryItems(){
         statSelect = "groundFriction";
     } else if (statSelect==="Basethirst"){
         statSelect = "baseThirst";
+    } else if (statSelect==="Martyr"){
+        statSelect="Martyrdom";
     }
 
     itemStatSelectVal = statSelect;
@@ -440,6 +442,8 @@ function queryPlayersOutliers(caller){
         statSelect = "ground_friction";
     } else if (statSelect==="Basethirst"){
         statSelect = "base_thirst";
+    } else if (statSelect==="Martyr"){
+        statSelect="martyrdom";
     }
 
     $("#teamCol").show();
@@ -523,6 +527,8 @@ function queryPlayers(caller){
         statSelect = "ground_friction";
     } else if (statSelect==="Basethirst"){
         statSelect = "base_thirst";
+    } else if (statSelect==="Martyr"){
+        statSelect="martyrdom";
     }
 
     for (var i=0;i<playersJSON.length;i++){
