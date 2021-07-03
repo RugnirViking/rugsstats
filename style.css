@@ -138,3 +138,6 @@ html{
 .header-text{
     color: grey!important;
 }
+.modal-lg, .modal-xl {
+    max-width: 1000px;
+}

@@ -57,6 +57,9 @@ function returnReducedPlayerlist(activeCheck,funkoCheck,position){
         player = playersJSON[j];
         if (player.current_state == "replica" && !funkoCheck)
             continue;
+        
+        if (player.current_state == "dust" && !funkoCheck)
+            continue;
 
         if (position == "Lineup" && player.position_type != "BATTER")
             continue;
@@ -75,8 +78,13 @@ function returnReducedPlayerlist(activeCheck,funkoCheck,position){
             continue;
         if (player.current_state == "deprecated" && activeCheck)
             continue;
+        if (player.current_state == "dust" && activeCheck)
+            continue;
         if (player.debut_gameday === null && activeCheck)
             continue;
+        if (player.position_type === null && activeCheck)
+            continue;
+
         list.push(player);
     }
     return list;
@@ -108,7 +116,7 @@ function queryPlayersOutliers(caller){
     document.getElementById("statName").innerText = statSelect;
     document.getElementById("modalTable").innerHTML = '';
     var playersWithSetting = returnReducedPlayerlist(activeCheck,funkoCheck,position);
-    const activePlayers = playersWithSetting.sort( compareSort ).slice(0,15);
+    const activePlayers = playersWithSetting.sort( compareSort ).slice(0,50);
     
     div = document.getElementById( 'modalTable' );
     for (var j=0;j<activePlayers.length;j++){
@@ -123,6 +131,19 @@ function queryPlayersOutliers(caller){
     
         var playerName = document.createElement("td");
         playerName.textContent = ""+activePlayers[j].player_name;
+        var playerTeam = document.createElement("td");
+        
+        var team = activePlayers[j].team;
+        if (team===null){
+            team="Null Team";
+        }
+        playerTeam.textContent = ""+team;
+        var playerPos = document.createElement("td");
+        var pos = activePlayers[j].position_type;
+        if (pos===null){
+            pos="Unknown";
+        }
+        playerPos.textContent = ""+pos.charAt(0).toUpperCase() + pos.slice(1).toLowerCase();
     
         var playerBlood = document.createElement("td");
         playerBlood.textContent = ""+activePlayers[j][statSelect.toLowerCase()].toFixed(5);
@@ -130,6 +151,8 @@ function queryPlayersOutliers(caller){
         playerRow.append(playerNum);
         playerRow.append(playerName);
         playerRow.append(playerBlood);
+        playerRow.append(playerTeam);
+        playerRow.append(playerPos);
     
         div.append(playerRow);
     }
@@ -195,6 +218,19 @@ function queryPlayers(caller){
     
         var playerBlood = document.createElement("td");
         playerBlood.textContent = ""+player[statSelect.toLowerCase()].toFixed(5);
+        var playerTeam = document.createElement("td");
+        
+        var team = activePlayers[j].team;
+        if (team===null){
+            team="Null Team";
+        }
+        playerTeam.textContent = ""+team;
+        var playerPos = document.createElement("td");
+        var pos = activePlayers[j].position_type;
+        if (pos===null){
+            pos="Unknown";
+        }
+        playerPos.textContent = ""+pos.charAt(0).toUpperCase() + pos.slice(1).toLowerCase();
     
     
         var playerDiff = document.createElement("td");
@@ -207,6 +243,8 @@ function queryPlayers(caller){
         playerRow.append(playerNum);
         playerRow.append(playerName);
         playerRow.append(playerBlood);
+        playerRow.append(playerTeam);
+        playerRow.append(playerPos);
         playerRow.append(playerDiff);
         playerRow.append(playerpct);
     
