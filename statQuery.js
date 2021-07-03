@@ -299,7 +299,7 @@ function queryItems(){
     if (modSelected!="Any"){
         itemList = itemsWithMod(modSelected);
     }
-    const activeItems = itemList.sort( compareSortItems ).slice(0,10);
+    const activeItems = itemList.sort( compareSortItems ).slice(0,50);
     document.getElementById("modalTable").innerHTML = '';
     div = document.getElementById( 'modalTable' );
     $("#exampleModalLabel").text("Item Search Results");
@@ -322,13 +322,19 @@ function queryItems(){
         playerBlood.textContent = ""+(itemTotalStat(item.data,statSelect)).toFixed(5);
         var player = playerHolding(item.data.name,item.data.health,item.data.durability);
         var playerName = document.createElement("td");
-        playerName.textContent = ""+player.player_name;
-        
-        playerRow.href = "https://www.blaseball.com/player/"+player.player_id;
+        var playerNameStr=""
+        if (player==undefined){
+            playerNameStr="Nobody (Bargain Bin)";
+        } else {
+            playerRow.href = "https://www.blaseball.com/player/"+player.player_id;
+            playerNameStr = player.player_name;
+        }
+        playerName.textContent = ""+playerNameStr;
         var playerTeam = document.createElement("td");
-        
-        var team = player.team;
-        if (team===null){
+        var team="";
+        if (player)
+            team = player.team;
+        if (team===null||team===""){
             team="Null Team";
         }
         playerTeam.textContent = ""+team;
