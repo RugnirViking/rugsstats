@@ -28,6 +28,7 @@ $( document ).ready(function() {
                 try {
                 topsection.textContent = ""+String.fromCodePoint(team.emoji);
                 } catch(err) {
+                    topsection.textContent = ""+team.emoji;
                 }
                 var midsection = document.createElement("div");
                 midsection.classList.add("card-body");
