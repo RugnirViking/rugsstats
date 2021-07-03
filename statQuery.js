@@ -310,7 +310,6 @@ function queryItems(){
         var playerRow = document.createElement("tr");
         playerRow.classList.add("playerRow");
         playerRow.classList.add("clickable-row");
-        //playerRow.href = "https://blaseball-reference.com/players/"+activePlayers[j].player_id;
     
         var playerNum = document.createElement("th");
         playerNum.textContent = ""+(j+1);
@@ -325,6 +324,7 @@ function queryItems(){
         var playerName = document.createElement("td");
         playerName.textContent = ""+player.player_name;
         
+        playerRow.href = "https://www.blaseball.com/player/"+player.player_id;
         var playerTeam = document.createElement("td");
         
         var team = player.team;
