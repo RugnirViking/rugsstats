@@ -17,6 +17,9 @@ $( document ).ready(function() {
         dataType: 'json',
         crossDomain: true,
         type: "GET",
+		error: function(result, type){
+			debugger;
+		},
         success: function(result){
             console.log(result);
             simInfo = result;
@@ -29,6 +32,9 @@ $( document ).ready(function() {
                 dataType: 'json',
                 crossDomain: true,
                 type: "GET",
+				error: function(result, type){
+					debugger;
+				},
                 success: function(result2){
                     console.log(result2);
                     leagueInfo = result2;
@@ -38,6 +44,9 @@ $( document ).ready(function() {
                         crossDomain: true,
                         type: "GET",
                         data:{"id":leagueInfo.standings},
+						error: function(result, type){
+							debugger;
+						},
                         success: function(result3){
                             console.log(result3);
                             standingsInfo = result3;
@@ -47,6 +56,9 @@ $( document ).ready(function() {
                                 crossDomain: true,
                                 type: "GET",
                                 data:{"id":wildhighdivId},
+								error: function(result, type){
+									debugger;
+								},
                                 success: function(result4){
                                     console.log(result4);
                                     wildHighTeams = result4;
@@ -55,12 +67,15 @@ $( document ).ready(function() {
                                         dataType: 'json',
                                         crossDomain: true,
                                         type: "GET",
+										error: function(result, type){
+											debugger;
+										},
                                         success: function(result5){
                                             console.log(result5);
                                             teamdata = result5;
                                             document.getElementById('spinner').style.display = 'none';
                                             var highestTeam=wildHighTeams.teams[0];
-                                            var mostWins=standingsInfo.wins[highestTeam];
+                                            var mostWins=0;
                                             for(var i=0;i<wildHighTeams.teams.length;i++){
                                                 var teamid = wildHighTeams.teams[i];
                                                 var team = teamdata.find(x => x.id === teamid);
@@ -77,6 +92,9 @@ $( document ).ready(function() {
                                                 dataType: 'json',
                                                 crossDomain: true,
                                                 type: "GET",
+												error: function(result, type){
+													debugger;
+												},
                                                 success: function(result6){
                                                     console.log(result6);
                                                     document.getElementById("submitButtonBeltDate").onclick = GetBeltOnDate;
