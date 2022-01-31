@@ -1,0 +1,187 @@
+<html>
+    <head>
+        <title>Rug's Stats</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REKC7PEQ0S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-REKC7PEQ0S');
+</script>
+    </head>
+    <body>
+      
+        <header>
+            <div class="collapse bg-dark" id="navbarHeader">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white header-text">Rug's Stats</h4>
+                    <p class="text-muted header-text">Rugnir wanted to play with some stats. If you found this useful, don't buy me a coffee, buy some seeds and put them out for the birds in your area. We slidin'.</p>
+                  </div>
+                  <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white header-text bold-top-text">Contact:</h4>
+                    <ul class="list-unstyled">
+                      <li><a href="#" class="text-muted header-text">@Rugnir on discord. Feel free to ping me.</a></li>
+                      <li><a href="mailto:rugnirtheviking@gmail.com" class="text-muted header-text underlined">Email me</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="navbar navbar-dark bg-dark shadow-sm">
+              <div class="container">
+                <a href="/rugsstats" class="navbar-brand d-flex align-items-center">
+                    <i class="fas fa-chart-bar"></i>
+                    <strong>&nbsp;Rug's Stats</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" href="#navbarHeader" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              </div>
+            </div>
+          </header>
+          
+          <main id="winnersection">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Closest Players</h5>
+        <button type="button" class="button close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modalContent" class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Value (<span id="statName"></span>)</th>
+              <th id="diffCol" scope="col">Difference</th>
+              <th id="matchCol" scope="col">% Match</th>
+            </tr>
+          </thead>
+          <tbody id="modalTable">
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="spinner" class="spinner">
+    <div class="h-100 d-flex justify-content-center align-items-center"">
+      <div class="spinner-grow" style="width: 20rem; height: 20rem;"  role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+  </div>
+</div>
+            <section class="py-5 text-center container d-block">
+              <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-10 mx-auto">
+                  <h1 class="fw-light">Your current Wild High Belt Holder is:</h1>
+                  <h3 class="fw-dark team" id="currentHoldingTeam"></h3>
+                  <p class="lead text-muted">as of: <br/>Season <span id="currentSeasonFlip"></span>
+                    Day
+                    <span id="currentDayFlip"></span></p>
+                  <div class="numbers">
+                    
+                  </div>
+                  
+                  <div id="nextgame">
+
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="album py-5 bg-light">
+              <div class="container">
+                <div id="teamlist" class="row  g-3">
+                  <div class="col-lg-6">
+                    <div class="card">
+                      <h5 class="card-header">Who has the belt now?</h5>
+                      <div class="card-body d-flex align-items flex-column">
+                        <p class="card-text note">Which team has the Wild High Championship Belt?</p>
+                        <div >
+                          Current holder: <span id="curholder"></span>
+                        </div>
+                        <div class="answertext mt-auto" id="beltAnswerText">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="card">
+                      <h5 class="card-header">Who had the belt on:</h5>
+                      <div class="card-body">
+                        <p class="card-text note">Which team had the Wild High Championship Belt on this day?</p>
+                        <div >
+                          <form class="row row-cols-3 g-3">
+                            <div class="form-group col">
+                              <label for="seasonlbl" class="labelForm">Season:</label>
+                              <input class="form-control" type="number" id="seasonlbl" placeholder="20">
+                            </div>
+                            <div class="form-group col">
+                              <label for="daylbl" class="labelForm">Day:</label>
+                              <input class="form-control" type="number" id="daylbl" placeholder="99">
+                            </div>
+                            <div class="form-group col">
+                              <label for="submitButtonBeltDate" class="labelForm">Go!</label>
+                              <button id="submitButtonBeltDate" type="button" class="btn btn-primary mb-2 submitButton">Find out</button>
+                            </div>
+                            </form>
+                        </div>
+                        <div class="hide answertext" id="dateBeltAnswerText">
+                          answer
+                        </div>
+                        <div class="hide errortext" id="dateBeltErrorText">
+                          error
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <h5 class="card-header">Current Wild High Teams</h5>
+                      <div class="card-body">
+                        <p class="card-text note">The current teams in the Wild High Division/Club</p>
+                        <div id="wildhighteams" class="row">
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+          
+          <footer class="text-muted py-5">
+            <div class="container">
+              <p class="float-end mb-1">
+                <a href="#">Back to top</a>
+              </p>
+              <p class="mb-1">Something something &copy; Rugnir, but not really, steal this, sell it, or wear it on your head if you like: <a href="https://unlicense.org/" class="sibrlink">The Unlicense</a></p>
+              <p class="mb-0">Go visit  <a href="https://sibr.dev/" class="sibrlink">SIBR Here</a>, they make cool things and this legit couldn't exist without those smart cookies.</p>
+            </div>
+          </footer>
+    </body>
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="belttracker_new.js"></script>
+  </html>
