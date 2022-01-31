@@ -169,7 +169,7 @@ $( document ).ready(function() {
                             for(var i=0, len=games.data.length; i < len; i++){
                                 game = games.data[i];
                                 gamedata = game.data;
-                                if (gamedata.gameComplete){
+                                if (gamedata.gameComplete && gamedata.isPostseason===false && gamedata.isTitleMatch===false && gamedata.isPrizeMatch===false){
                                     if (wildhigh_extendeduniverseteams.includes(gamedata.awayTeam) && wildhigh_extendeduniverseteams.includes(gamedata.homeTeam)){
                                         // potential belt match
                                         homebelts = getTeamBelts(gamedata.homeTeam);
