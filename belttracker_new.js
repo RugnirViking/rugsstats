@@ -8,9 +8,10 @@ var teamdata = {};
 var currentDay=0;
 var currentSeason=0;
 
+
 $( document ).ready(function() {
     console.log( "ready!" );
-    var endpoint = 'https://cors-proxy.blaseball-reference.com/database/simulationData';
+    var endpoint = 'https://api.sibr.dev/corsmechanics/api.blaseball.com/database/simulationData';
     $.support.cors = true;
     $.ajax({
         url: endpoint ,
