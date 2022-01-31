@@ -1,5 +1,4 @@
 var simInfo={};
-var wildhighdivId = "d4cc18de-a136-4271-84f1-32516be91a80";
 var leagueInfo={};
 var standingsInfo={};
 var wildHighTeams={};
@@ -7,7 +6,118 @@ var currentHolders = {};
 var teamdata = {};
 var currentDay=0;
 var currentSeason=0;
+var wildhigh_extendeduniverseteams = ["2f90c5e3-21fe-4842-b89a-c00c14bc4d5a", // wings
+                                      "537cf346-533e-4f8d-92e6-54a43b285e18", // lovers
+                                      "e09e5d91-dd07-4551-abb8-e527f59361a8", // crabs
+                                      "4ac1b94f-a3f6-4650-ade9-1fd8ced20e18", // georgias
+                                      "db2dee1e-9f7c-4b08-a30d-3d31286122df", // ffs
+                                      "7e89ab0c-e63e-44e2-8c9d-689ad30cc5b3", // mills
+                                      "af191af8-f0c1-4aac-9fb5-aed18f39a126", // hands
+                                      "2036a676-afd7-4693-91e0-d1839f23089a", // tigers
+                                      "b9e5f7df-1455-44b0-a659-65fa96bee48e", // lift
+                                     ]
+var belts = []
+for(var i=0, len=wildhigh_extendeduniverseteams.length; i < len; i++){
+    team = wildhigh_extendeduniverseteams[i];
+    belt = {"starting_team":team,"current_team":team};
+    belts.push(belt);
+}
 
+var teamsdata = []
+
+
+function getTeamBelts(team){
+    teambelts=[];
+    for(var i=0, len=belts.length; i < len; i++){
+        belt = belts[i];
+        if (belt.current_team === team){
+            teambelts.push(belt);
+        }
+    }
+    return teambelts;
+}
+function getteamdatabyid(teamid){
+    for(var i=0, len=teamsdata.length; i < len; i++){
+        if (teamsdata[i].id===teamid){
+            return teamsdata[i];
+        }
+    }
+}
+function updateteamdata(team,teamdata){
+    teamsdata.push(teamdata)
+}
+
+function drawTeamBox(team){
+    result=getteamdatabyid(team);
+    div = document.getElementById( 'teamlist' );
+    
+    var teamcard = document.createElement("a");
+    teamcard.classList.add("col");
+    teamcard.classList.add("col-lg-4"); 
+    teamcard.href = "https://www.blaseball.com/team/"+team;
+    var teamcardin = document.createElement("div");
+    teamcardin.classList.add("card");
+    teamcardin.classList.add("cardGrow");
+    teamcardin.classList.add("shadow-sm");
+
+    
+    var topsection = document.createElement("div");
+    topsection.classList.add("bd-placeholder-img");
+    topsection.classList.add("card-img-top");
+    topsection.style.backgroundColor = result.mainColor;
+    try {
+        topsection.textContent = ""+String.fromCodePoint(result.emoji);
+    } catch(err) {
+        topsection.textContent = ""+result.emoji;
+    }
+    var midsection = document.createElement("div");
+    midsection.classList.add("card-body");
+    midsection.style.backgroundColor = LightenDarkenColor(result.mainColor,-100);
+    midsection.style.color = result.secondaryColor;
+    midsection.style.textAlign = "center";
+    midsection.style.fontSize = "1.15em";
+    midsection.style.fontWeight = 900;
+
+    let textElement = document.createElement("p");
+    textElement.textContent = result.fullName;
+
+    midsection.append(textElement);
+
+    
+    var bottomsection = document.createElement("div");
+    bottomsection.classList.add("card-body");
+    bottomsection.style.backgroundColor = LightenDarkenColor(result.mainColor,100);
+    bottomsection.style.color = LightenDarkenColor(result.mainColor,-50);
+
+    let textElement2 = document.createElement("p");
+    textElement2.textContent = "Belts as of day "+currentDay+": ";
+    teambelts = getTeamBelts(team);
+    
+    bottomsection.append(textElement2);
+    for(var i=0, len=teambelts.length; i < len; i++){
+        let textElement_n = document.createElement("p");
+        teamdata = getteamdatabyid(teambelts[i].starting_team);
+        emoji_pt=""
+        try {
+            emoji_pt = ""+String.fromCodePoint(teamdata.emoji);
+        } catch(err) {
+            emoji_pt = ""+teamdata.emoji;
+        }
+        textElement_n.textContent = " - "+emoji_pt+" "+teamdata.fullName;
+        bottomsection.append(textElement_n);
+    }
+
+
+
+
+    teamcardin.append(topsection);
+    teamcardin.append(midsection);
+    teamcardin.append(bottomsection);
+    teamcard.append(teamcardin);
+    div.append(teamcard);
+    
+    
+}
 
 $( document ).ready(function() {
     console.log( "ready!" );
@@ -23,150 +133,97 @@ $( document ).ready(function() {
 		},
         success: function(result){
             console.log(result);
-        }
-    });
-});
-function DateBeltError(errorText,season=-1,day=-1){
-    var element = document.getElementById("dateBeltErrorText");
-    element.classList.remove("hide");
-    element.innerText = errorText;
-    if (season===-1){
-        document.getElementById("seasonlbl").value=(currentSeason+1);
-    } else {
-        document.getElementById("seasonlbl").value=season;
-    }
-    if (day===-1){
-        document.getElementById("daylbl").value=(currentDay+1);
-    } else {
-        document.getElementById("daylbl").value=day;
-    }
-}
-function GetBeltOnDate(sender,somethingelse){
-    
-    var selectedSeason = document.getElementById("seasonlbl").value;
-    var selectedDay = document.getElementById("daylbl").value;
-    if (selectedSeason-1>currentSeason){
-        DateBeltError("Cannot select season after current season ("+(currentSeason+1)+")");
-        return;
-    }
-    if (selectedSeason==1){
-        DateBeltError("Cannot select first season, no data");
-        return;
-    }
-    
-    if (selectedSeason<7){
-        DateBeltError("Invalid Season. Valid range is 7-"+(currentSeason+1));
-        return;
-    }
-    if ((selectedSeason-1)==currentSeason && selectedDay-1>currentDay){
-        DateBeltError("Cannot select day after current day ("+(currentDay+1)+")");
-        return;
-    } else if (selectedDay>100){
-        DateBeltError("Cannot select day after day 100 in historical seasons ("+(currentDay+1)+")",selectedSeason,100);
-        return;
-    } 
-    if (selectedDay<1){
-        DateBeltError("Invalid Day. Valid range is 1-"+(currentDay+1));
-        return;
-    }
-    
-    var element = document.getElementById("dateBeltErrorText");
-    element.classList.add("hide");
-    document.getElementById('spinner').style.display = 'block';
-    $.ajax({
-        url: "https://cors-proxy.blaseball-reference.com/database/season?number="+(selectedSeason-2),
-        dataType: 'json',
-        crossDomain: true,
-        type: "GET",
-        success: function(result2){
-            var curleagueInfo = result2;
+            simInfo = result;
+            currentDay = simInfo.day; // remember its 0 indexed so add 1
+            season = simInfo.seasonId;
+            simStart = simInfo.simStart;
+            simEnd = simInfo.simEnd;
             $.ajax({
-                url: "https://cors-proxy.blaseball-reference.com/database/standings",
+                url: "https://api.sibr.dev/eventually/time/gamma10/0", // note: this should be kept updated to current season, potentially look into automating it.
                 dataType: 'json',
                 crossDomain: true,
                 type: "GET",
-                data:{"id":curleagueInfo.standings},
-                success: function(result3){
-                    var curstandingsInfo = result3;
+                data:{"after":simStart,
+                      "before":simEnd,
+                      "finished":true,
+                    },
+				error: function(result, type){
+					debugger;
+				},
+                success: function(result2){
+                    standings=result2;
                     $.ajax({
-                        url: "https://cors-proxy.blaseball-reference.com/database/division",
+                        url: "https://api.sibr.dev/chronicler/v1/games",
                         dataType: 'json',
                         crossDomain: true,
                         type: "GET",
-                        data:{"id":wildhighdivId},
-                        success: function(result4){
-                            var curwildHighTeams = result4;
-                            var highestTeam=curwildHighTeams.teams[0];
-                            var mostWins=curstandingsInfo.wins[highestTeam];
-                            for(var i=0;i<curwildHighTeams.teams.length;i++){
-                                var teamid = curwildHighTeams.teams[i];
-                                var team = teamdata.find(x => x.id === teamid);
-                                console.log("Team "+team.fullName+" wins: "+curstandingsInfo.wins[teamid]);
-                                if (curstandingsInfo.wins[teamid]>mostWins){
-                                    mostWins = curstandingsInfo.wins[teamid];
-                                    highestTeam = team
-                                }
-                            }
-                            var dateCurrentHolders = highestTeam;
-                            console.log("Team with belt at start of season "+highestTeam.fullName);
-                            $.ajax({
-                                url: "https://api.sibr.dev/chronicler/v1/games?season="+ (selectedSeason-1),
-                                dataType: 'json',
-                                crossDomain: true,
-                                type: "GET",
-                                success: function(result6){
-                                    for(var i=0;i<result6.data.length;i++){
-                                        var game = result6.data[i];
-                                        var gamedata = game.data;
-                                        if (gamedata.finalized && (gamedata.day+1)%3==0 && gamedata.day<selectedDay){
-                                            // the game has finished and is the last game in a series and is before the supplied day
-                                            if (curwildHighTeams.teams.includes(gamedata.homeTeam) && curwildHighTeams.teams.includes(gamedata.awayTeam)){
-                                                // two wild high teams play each other
-                                                if (dateCurrentHolders.id==gamedata.homeTeam||dateCurrentHolders.id==gamedata.awayTeam){
-                                                    console.log("Processing day "+gamedata.day+" belt match between "+teamdata.find(x => x.id === gamedata.homeTeam).fullName+" (home) and "+teamdata.find(x => x.id === gamedata.awayTeam).fullName+" (away)")
-                                                    // one of the teams is the "current" holder of the belt
-                                                    if (gamedata.homeScore>gamedata.awayScore){
-                                                        // home team won
-                                                        console.log(teamdata.find(x => x.id === gamedata.homeTeam).fullName+" won the match and gets the belt");
-                                                        if (dateCurrentHolders.id==gamedata.homeTeam){
-                                                            // current holders won, they keep the belt
-                                                        } else {
-                                                            // current holders lost. Home team gets the belt
-                                                            dateCurrentHolders = teamdata.find(x => x.id === gamedata.homeTeam);
-                                                        }
-                                                    } else if (gamedata.awayScore>gamedata.homeScore){
-                                                        // away team won
-                                                        console.log(teamdata.find(x => x.id === gamedata.awayTeam).fullName+" won the match and gets the belt");
-                                                        if (dateCurrentHolders.id==gamedata.awayTeam){
-                                                            // current holders won, they keep the belt
-                                                        } else {
-                                                            // current holders lost. Away team gets the belt
-                                                            dateCurrentHolders = teamdata.find(x => x.id === gamedata.awayTeam);
-                                                        }
-                                                    } else {
-                                                        // something really fishy happened....
-                                                        console.log("Something weird happened in game. Game finished but equal score? "+game.gameId);
-                                                    }
-                                                    
-                                                }
+                        data:{"after":result2.start,
+                              "before":result2.end,
+                              //"finished":true,      // don't want this so we can show next belt match time
+                            },
+                        error: function(result, type){
+                            debugger;
+                        },
+                        success: function(result3){
+                            games=result3;
+                            for(var i=0, len=games.data.length; i < len; i++){
+                                game = games.data[i];
+                                gamedata = game.data;
+                                if (gamedata.gameComplete){
+                                    if (wildhigh_extendeduniverseteams.includes(gamedata.awayTeam) && wildhigh_extendeduniverseteams.includes(gamedata.homeTeam)){
+                                        // potential belt match
+                                        homebelts = getTeamBelts(gamedata.homeTeam);
+                                        awaybelts = getTeamBelts(gamedata.awayTeam);
+                                        if (homebelts.length>0 || awaybelts.length>0){
+                                            // belt match
+                                            if (homebelts.length>0 && awaybelts.length>0){
+                                                // DOUBLE BELT MATCH
+                                                // dont think anything special happens here but its neat
+                                            }
+                                            
+                                            for(var j=0, len2=homebelts.length; j < len2; j++){
+                                                homebelts[j].current_team=gamedata.winner;
+                                            }
+                                            for(var j=0, len2=awaybelts.length; j < len2; j++){
+                                                awaybelts[j].current_team=gamedata.winner;
                                             }
                                         }
                                     }
-                                    // we looped through all games. Current holder should be left
-                                    console.log("Holder on day "+(selectedDay)+" is "+dateCurrentHolders.fullName);
-                                    document.getElementById('spinner').style.display = 'none';
-                                    
-                                    var element = document.getElementById("dateBeltAnswerText");
-                                    element.classList.remove("hide");
-                                    element.innerText = "Holder on season "+selectedSeason+", day "+(selectedDay)+" is "+dateCurrentHolders.fullName;
+                                }
+                            }
+                            // finished processing up to current day
+                            
+                            document.getElementById('spinner').style.display = 'none';
+                            $.ajax({
+                                url: "https://api.sibr.dev/corsmechanics/api.blaseball.com/database/teams",
+                                dataType: 'json',
+                                crossDomain: true,
+                                type: "GET",
+                                error: function(result, type){
+                                    debugger;
+                                },
+                                success: function(result4){
+                                    for (var i=0;i<result4.length;i++){
+                                        if (wildhigh_extendeduniverseteams.includes(result4[i].id)){
+                                            updateteamdata(team,result4[i]);
+                                        }
+                                    }
+                                    for (var i=0;i<wildhigh_extendeduniverseteams.length;i++){
+                                        drawTeamBox(wildhigh_extendeduniverseteams[i]);
+                                        
+                                    }
                                 }
                             });
                         }
                     });
                 }
             });
+            
         }
     });
+});
+function GetBeltOnDate(sender,somethingelse){
+    
 }
 
 function LightenDarkenColor(col, amt) {
@@ -202,80 +259,3 @@ function LightenDarkenColor(col, amt) {
     return (usePound?'#':'') + c;
   
 }
-function ListWildTeams(teams){
-    div = document.getElementById( 'wildhighteams' );
-    for (var i=0;i<teams.length;i++){
-        var team = teams[i];
-        var teamcard = document.createElement("div");
-        teamcard.classList.add("col-12");
-        teamcard.classList.add("col-lg-4");
-        var teamcardin = document.createElement("div");
-        teamcardin.classList.add("card");
-        teamcardin.classList.add("cardGrow");
-        teamcardin.classList.add("shadow-sm");
-
-        
-        var topsection = document.createElement("div");
-        topsection.classList.add("bd-placeholder-img");
-        topsection.classList.add("card-img-top");
-        topsection.style.backgroundColor = team.mainColor;
-        try {
-            topsection.textContent = ""+String.fromCodePoint(team.emoji);
-        } catch(err) {
-            topsection.textContent = team.emoji;
-        }
-        var midsection = document.createElement("div");
-        midsection.classList.add("card-body");
-        midsection.style.backgroundColor = LightenDarkenColor(team.mainColor,-100);
-        midsection.style.color = team.secondaryColor;
-
-        let textElement = document.createElement("p");
-        textElement.textContent = team.fullName;
-
-        midsection.append(textElement);
-
-        teamcardin.append(topsection);
-        teamcardin.append(midsection);
-        teamcard.append(teamcardin);
-        div.append(teamcard);
-    }
-}
-function shuffle(array) {
-    var currentIndex = array.length,  randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
-  }
-/*$.ajax({
-                url: "https://cors-proxy.blaseball-reference.com/database/season?number="+simInfo.season,
-                dataType: 'json',
-                crossDomain: true,
-                type: "GET",
-                success: function(result2){
-                    console.log(result2);
-                    leagueInfo = result;
-                    $.ajax({
-                        url: "https://cors-proxy.blaseball-reference.com/database/standings",
-                        dataType: 'json',
-                        crossDomain: true,
-                        type: "GET",
-                        data:{"id":leagueInfo.standings},
-                        success: function(result3){
-                            console.log(result3);
-                            standingsInfo = result;
-                            debugger;
-                        }
-                    });
-                }
-            });*/
